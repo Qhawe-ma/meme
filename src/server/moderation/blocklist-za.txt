@@ -1,0 +1,14 @@
+# Starter blocklist. Add terms as reports come in. Matching is a case-insensitive substring.
+blocktest
+kys
+nigger
+nigga
+faggot
+retard
+kaffir
+koelie
+hotnot
+whitegenocide
+gass the
+gas the jews
+kill yourself

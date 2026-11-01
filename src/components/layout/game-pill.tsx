@@ -8,8 +8,8 @@ export function GamePill({ className }: { className?: string }) {
   return (
     <p
       className={cn(
-        "inline-block -rotate-1 whitespace-nowrap rounded-md border-2 border-night bg-taxi px-2 py-0.5",
-        "text-xs font-bold text-night shadow-[2px_2px_0_0_rgba(0,0,0,0.35)]",
+        "inline-flex max-w-full items-center whitespace-nowrap rounded-full bg-taxi px-2.5 py-1",
+        "text-[11px] font-bold leading-none text-night",
         className,
       )}
     >
