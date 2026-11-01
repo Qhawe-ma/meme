@@ -37,7 +37,7 @@ test.describe("shell at 360 px", () => {
 test("landing page leads with the headline and links to the feed", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Launch a meme coin");
-  await page.getByRole("link", { name: "Take a look inside" }).click();
+  await page.getByRole("link", { name: "Browse the floor" }).click();
   await expect(page).toHaveURL(/\/feed$/);
 });
 

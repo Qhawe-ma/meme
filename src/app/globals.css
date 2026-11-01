@@ -1,23 +1,25 @@
 @import "tailwindcss";
 
 /*
-  Meme Market look: a South African taxi rank at night. Deep indigo ground,
-  taxi-yellow for the "this is a game" sticker, protea pink for the main action.
-  Dark only for now (the spec asks for dark by default).
+  Meme Market. Night market, taxi yellow for the game sticker, protea for action.
+  Dark only. Tokens are the whole design system.
 */
 @theme {
-  --color-night: #1c1a33;
-  --color-night-2: #252244;
-  --color-night-3: #302c58;
-  --color-ink: #f3ede2;
-  --color-ink-dim: #b9b3c9;
-  --color-protea: #d63a6c;
-  --color-taxi: #f6b93b;
-  --color-up: #4cc38a;
-  --color-down: #f26a5b;
-
+  --color-night: #100e18;
+  --color-night-2: #191624;
+  --color-night-3: #262133;
+  --color-night-4: #342d46;
+  --color-ink: #f7f2ea;
+  --color-ink-dim: #b7adc4;
+  --color-protea: #ff4d88;
+  --color-protea-deep: #d62868;
+  --color-taxi: #ffc857;
+  --color-up: #3ddc97;
+  --color-down: #ff6b6b;
+  --color-line: rgb(255 255 255 / 0.08);
   --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 1.25rem;
 }
 
 :root {
@@ -29,7 +31,11 @@ html {
 }
 
 body {
-  background: var(--color-night);
+  min-height: 100dvh;
+  background:
+    radial-gradient(900px 420px at 90% -10%, rgb(255 77 136 / 0.18), transparent 60%),
+    radial-gradient(700px 380px at -10% 10%, rgb(255 200 87 / 0.08), transparent 55%),
+    var(--color-night);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -41,11 +47,34 @@ body {
   outline-offset: 2px;
 }
 
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.card {
+  border: 1px solid var(--color-line);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.035), rgb(255 255 255 / 0.015));
+  border-radius: var(--radius-card);
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.25);
+}
+
+.card-hover {
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgb(255 200 87 / 0.35);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+  .card-hover:hover {
+    transform: none;
   }
 }

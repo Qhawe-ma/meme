@@ -2,9 +2,10 @@ import { describe, expect, it } from "vitest";
 import { ECON, PRESETS, UFR } from "./economy";
 
 describe("economy constants", () => {
-  it("splits the buy and sell fee exactly into creator and burn shares", () => {
-    expect(ECON.CREATOR_FEE_BPS + ECON.BURN_FEE_BPS).toBe(ECON.BUY_FEE_BPS);
+  it("splits the buy and sell fee exactly into creator and platform shares", () => {
+    expect(ECON.CREATOR_FEE_BPS + ECON.PLATFORM_FEE_BPS).toBe(ECON.BUY_FEE_BPS);
     expect(ECON.BUY_FEE_BPS).toBe(ECON.SELL_FEE_BPS);
+    expect(ECON.CREATOR_FEE_BPS * 5n).toBe(ECON.BUY_FEE_BPS);
   });
 
   it("keeps the curve supply inside the total supply", () => {

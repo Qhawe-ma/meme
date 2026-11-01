@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const databaseUrl = process.env.DATABASE_URL ?? "postgres://app_rw:mm_app_dev_only@127.0.0.1:5432/meme_market";
+const migratorUrl = process.env.MIGRATOR_DATABASE_URL ?? "postgres://mm_migrator:mm_dev_only@127.0.0.1:5432/meme_market";
+
 export default defineConfig({
   testDir: "tests/e2e",
   fullyParallel: true,
@@ -15,9 +18,17 @@ export default defineConfig({
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },
   ],
   webServer: {
-    command: process.env.CI ? "npm run start" : "npm run dev",
+    command: "node scripts/migrate.mjs && npm run start",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
+    timeout: 180_000,
+    env: {
+      ...process.env,
+      DATABASE_URL: databaseUrl,
+      MIGRATOR_DATABASE_URL: migratorUrl,
+      APP_URL: "http://localhost:3000",
+      EMAIL_CAPTURE: "true",
+      RATE_LIMIT_DISABLED: "1",
+    },
   },
 });
