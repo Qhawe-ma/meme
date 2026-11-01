@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/*
+  Meme Market look: a South African taxi rank at night. Deep indigo ground,
+  taxi-yellow for the "this is a game" sticker, protea pink for the main action.
+  Dark only for now (the spec asks for dark by default).
+*/
+@theme {
+  --color-night: #1c1a33;
+  --color-night-2: #252244;
+  --color-night-3: #302c58;
+  --color-ink: #f3ede2;
+  --color-ink-dim: #b9b3c9;
+  --color-protea: #d63a6c;
+  --color-taxi: #f6b93b;
+  --color-up: #4cc38a;
+  --color-down: #f26a5b;
+
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-night);
+}
+
+body {
+  background: var(--color-night);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-taxi);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
