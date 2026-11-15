@@ -1,4 +1,4 @@
-# Local dev services only. Passwords here are for your laptop, not for any real deployment.
+# Local Postgres for later migrations. This password is for your laptop only.
 services:
   postgres:
     image: postgres:16
@@ -13,17 +13,6 @@ services:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U mm_migrator -d meme_market"]
-      interval: 5s
-      timeout: 3s
-      retries: 10
-
-  redis:
-    image: redis:7
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 10

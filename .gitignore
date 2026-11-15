@@ -2,10 +2,18 @@ node_modules
 .next
 out
 build
+coverage
+
 .env
-.env.local
+.env.*
+!.env.example
+
 *.tsbuildinfo
 next-env.d.ts
 playwright-report
 test-results
+npm-debug.log*
 .DS_Store
+
+# Written by `next dev` for coding agents. Not part of the project.
+AGENTS.md

@@ -22,7 +22,7 @@ describe("economy constants", () => {
     }
   });
 
-  it("states the headline numbers from the spec", () => {
+  it("locks the headline amounts", () => {
     expect(ECON.SIGNUP_GRANT_UFR).toBe(200n * UFR);
     expect(ECON.CREATE_FEE_UFR).toBe(20n * UFR);
     expect(PRESETS.default.GRADUATION_TARGET_UFR).toBe(100_000n * UFR);

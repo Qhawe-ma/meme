@@ -1,2 +1,2 @@
-// Tables arrive in M1 (ledger) and later. Nothing is defined in M0 on purpose.
+// No tables yet. drizzle-kit still expects a schema module at this path.
 export {};
