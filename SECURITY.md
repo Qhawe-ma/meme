@@ -1,11 +1,7 @@
 # Security
 
-Stub. Filled in properly in M9 (pen-test checklist, spec section 9.10).
+There is no production deployment, no accounts, and no balance. FR cannot be bought or withdrawn, because those flows do not exist.
 
-## Reporting a problem
-Not set up yet. A security contact address is added before any beta tester is invited.
+If you find a problem, open a GitHub issue. There is no private security contact yet. One gets added before anyone is invited onto a beta.
 
-## Rules that never change
-- FR has no cash value. No top-ups, no cash-out, no transfers between players outside trades.
-- No crypto, no blockchain, no wallets.
-- Only the signup grant (and the off-by-default bailout) can create FR, and the database enforces it (M1).
+The product rules that matter from day one are in [docs/architecture.md](docs/architecture.md): FR has no cash value, and the only mint is the signup grant.
