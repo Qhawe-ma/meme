@@ -137,7 +137,7 @@ async function maybeGrant(tx: Tx, userId: string, deviceId: string | null, ip: s
     `;
     if ((count?.n ?? 0) >= 2) reason = "device";
   }
-  const loopback = ip === "::1" || ip.startsWith("127.");
+  const loopback = ip === "::1" || ip === "0.0.0.0" || ip.startsWith("127.");
   if (!reason && !loopback) {
     const [count] = await tx<{ n: number }[]>`
       SELECT COUNT(*)::int AS n FROM grant_claims

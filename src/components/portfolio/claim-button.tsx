@@ -11,10 +11,10 @@ export function ClaimButton({ pendingUfr }: { pendingUfr: string }) {
   const [busy, setBusy] = useState(false);
   const amount = BigInt(pendingUfr || "0");
   return (
-    <div className="card flex flex-wrap items-center justify-between gap-3 p-5">
+    <div className="flex flex-wrap items-center justify-between gap-3 border border-line bg-night-2 px-3 py-3">
       <div>
-        <p className="text-sm text-ink-dim">Creator rewards</p>
-        <p className="font-display text-3xl font-extrabold num">{formatFR(amount)}</p>
+        <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">Creator rewards</p>
+        <p className="num text-3xl">{formatFR(amount)}</p>
         <p className="text-xs text-ink-dim">0.25% of trades on your coins. Claim moves them into your balance.</p>
       </div>
       <div>

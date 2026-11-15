@@ -76,7 +76,7 @@ test("sign up, verify, launch, buy, sell, claim, leaderboard", async ({ page }, 
 
   await page.goto("/leaderboard");
   await expect(page.getByRole("heading", { name: "This week" })).toBeVisible();
-  await expect(page.getByText(`@${handle}`)).toBeVisible();
+  await expect(page.getByText(`Your week, @${handle}`)).toBeVisible();
 });
 
 async function solidPng() {

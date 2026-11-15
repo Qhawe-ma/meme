@@ -24,7 +24,7 @@ export function SignUpForm() {
 
   return done ? (
     <div className="card p-6">
-      <h1 className="font-display text-3xl font-extrabold">Check your email</h1>
+      <h1 className="display text-5xl leading-none">Check your email</h1>
       <p className="mt-3 text-ink-dim">
         We sent a verification link. Open it on this device and your one-time FR200 grant lands. FR has no cash value.
       </p>
@@ -56,7 +56,7 @@ export function SignUpForm() {
       }}
     >
       <div>
-        <h1 className="font-display text-3xl font-extrabold">Create your account</h1>
+        <h1 className="display text-5xl leading-none">Create your account</h1>
         <p className="mt-2 text-sm text-ink-dim">18+ only. One FR200 grant per verified person. It is a game.</p>
       </div>
       <Field label="Email">
@@ -123,7 +123,7 @@ export function SignInForm({ errorHint }: { errorHint?: string }) {
         }
       }}
     >
-      <h1 className="font-display text-3xl font-extrabold">Welcome back</h1>
+      <h1 className="display text-5xl leading-none">Howzit</h1>
       <Field label="Email">
         <TextInput name="email" type="email" autoComplete="email" required />
       </Field>
@@ -162,7 +162,7 @@ export function ForgotForm() {
         }
       }}
     >
-      <h1 className="font-display text-3xl font-extrabold">Reset password</h1>
+      <h1 className="display text-5xl leading-none">Reset password</h1>
       <Field label="Email">
         <TextInput name="email" type="email" required />
       </Field>
@@ -189,7 +189,7 @@ export function ResetForm({ token }: { token: string }) {
         }
       }}
     >
-      <h1 className="font-display text-3xl font-extrabold">Choose a new password</h1>
+      <h1 className="display text-5xl leading-none">New password</h1>
       <Field label="New password">
         <TextInput name="password" type="password" required minLength={10} />
       </Field>

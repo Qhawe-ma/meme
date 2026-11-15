@@ -27,18 +27,18 @@ export function ChartPanel({ ticker }: { ticker: string }) {
       if (dead || !host.current) return;
       const next = lib.createChart(host.current, {
         height: 320,
-        layout: { background: { type: lib.ColorType.Solid, color: "transparent" }, textColor: "#b7adc4" },
-        grid: { vertLines: { color: "rgba(255,255,255,0.04)" }, horzLines: { color: "rgba(255,255,255,0.04)" } },
-        rightPriceScale: { borderColor: "rgba(255,255,255,0.08)" },
-        timeScale: { borderColor: "rgba(255,255,255,0.08)", timeVisible: tf !== "1d" },
+        layout: { background: { type: lib.ColorType.Solid, color: "#0e0f0c" }, textColor: "#8e927f", fontFamily: "IBM Plex Mono, ui-monospace, monospace" },
+        grid: { vertLines: { color: "#1c2018" }, horzLines: { color: "#1c2018" } },
+        rightPriceScale: { borderColor: "#2a2e24" },
+        timeScale: { borderColor: "#2a2e24", timeVisible: tf !== "1d" },
       });
       const scale = mode === "mcap" ? 1000 : 1;
       const candles = next.addSeries(lib.CandlestickSeries, {
-        upColor: "#3ddc97",
-        downColor: "#ff6b6b",
+        upColor: "#c6f135",
+        downColor: "#ff4b2b",
         borderVisible: false,
-        wickUpColor: "#3ddc97",
-        wickDownColor: "#ff6b6b",
+        wickUpColor: "#c6f135",
+        wickDownColor: "#ff4b2b",
       });
       candles.setData(
         data.candles.map((candle) => ({
@@ -50,12 +50,12 @@ export function ChartPanel({ ticker }: { ticker: string }) {
         })),
       );
       const volume = next.addSeries(lib.HistogramSeries, { priceFormat: { type: "volume" }, priceScaleId: "vol" });
-      volume.priceScale().applyOptions({ scaleMargins: { top: 0.8, bottom: 0 } });
+      volume.priceScale().applyOptions({ scaleMargins: { top: 0.82, bottom: 0 } });
       volume.setData(
         data.candles.map((candle) => ({
           time: Math.floor(new Date(candle.t).getTime() / 1000) as never,
           value: Number(candle.v) / 1e6,
-          color: BigInt(candle.bv) >= BigInt(candle.sv) ? "rgba(61,220,151,0.7)" : "rgba(255,107,107,0.7)",
+          color: BigInt(candle.bv) >= BigInt(candle.sv) ? "rgba(198,241,53,0.45)" : "rgba(255,75,43,0.45)",
         })),
       );
       next.timeScale().fitContent();
@@ -68,26 +68,26 @@ export function ChartPanel({ ticker }: { ticker: string }) {
   }, [ticker, tf, mode]);
 
   return (
-    <section className="card overflow-hidden p-3">
-      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-        <div className="flex gap-1">
+    <section className="border border-line bg-night">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-2 py-1">
+        <div className="flex">
           {TFS.map((item) => (
             <button
               key={item}
               type="button"
               onClick={() => setTf(item)}
-              className={cn("rounded-lg px-2 py-1 text-xs font-bold", tf === item ? "bg-night-3 text-ink" : "text-ink-dim")}
+              className={cn("px-2 py-1 font-mono text-[11px] uppercase", tf === item ? "bg-ink text-night" : "text-ink-dim")}
             >
               {item}
             </button>
           ))}
         </div>
-        <div className="flex gap-1 text-xs font-bold">
-          <button type="button" className={cn("rounded-lg px-2 py-1", mode === "price" ? "bg-taxi text-night" : "text-ink-dim")} onClick={() => setMode("price")}>
+        <div className="flex font-mono text-[11px] uppercase">
+          <button type="button" className={cn("px-2 py-1", mode === "price" ? "bg-taxi text-night" : "text-ink-dim")} onClick={() => setMode("price")}>
             Price
           </button>
-          <button type="button" className={cn("rounded-lg px-2 py-1", mode === "mcap" ? "bg-taxi text-night" : "text-ink-dim")} onClick={() => setMode("mcap")}>
-            Market cap
+          <button type="button" className={cn("px-2 py-1", mode === "mcap" ? "bg-taxi text-night" : "text-ink-dim")} onClick={() => setMode("mcap")}>
+            Mcap
           </button>
         </div>
       </div>

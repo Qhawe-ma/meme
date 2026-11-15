@@ -37,7 +37,6 @@ export function TradePanel({
   const [quote, setQuote] = useState<Quote | null>(null);
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
-
   const holding = BigInt(shares || "0");
 
   async function review() {
@@ -102,8 +101,8 @@ export function TradePanel({
   }
 
   return (
-    <section className="card p-4 lg:sticky lg:top-28">
-      <div className="grid grid-cols-2 gap-2 rounded-xl bg-night p-1">
+    <section className="border border-line bg-night-2 lg:sticky lg:top-24">
+      <div className="grid grid-cols-2">
         {(["buy", "sell"] as const).map((item) => (
           <button
             key={item}
@@ -113,7 +112,7 @@ export function TradePanel({
               setQuote(null);
             }}
             className={cn(
-              "h-10 rounded-lg text-sm font-bold capitalize",
+              "h-10 text-xs font-semibold uppercase tracking-wider",
               side === item ? (item === "buy" ? "bg-up text-night" : "bg-down text-night") : "text-ink-dim",
             )}
           >
@@ -121,82 +120,81 @@ export function TradePanel({
           </button>
         ))}
       </div>
-      {side === "buy" ? (
-        <div className="mt-4">
-          <div className="mb-2 flex justify-between text-xs text-ink-dim">
-            <span>Amount</span>
-            <span className="num">Cash {formatFR(BigInt(cashUfr || "0"))}</span>
+      <div className="space-y-3 p-3">
+        {side === "buy" ? (
+          <div>
+            <div className="mb-1 flex justify-between font-mono text-[10px] uppercase text-ink-dim">
+              <span>Amount</span>
+              <span>Cash {formatFR(BigInt(cashUfr || "0"))}</span>
+            </div>
+            <input
+              aria-label="Amount"
+              value={amount}
+              onChange={(event) => {
+                setAmount(event.target.value);
+                setQuote(null);
+              }}
+              className="num h-12 w-full border border-line bg-night px-2 text-2xl"
+            />
+            <div className="mt-2 flex gap-1">
+              {["5", "10", "25"].map((chip) => (
+                <button key={chip} type="button" className="border border-line px-2 py-1 font-mono text-[11px]" onClick={() => setAmount(chip)}>
+                  FR{chip}
+                </button>
+              ))}
+            </div>
           </div>
-          <input
-            aria-label="Amount"
-            value={amount}
-            onChange={(event) => {
-              setAmount(event.target.value);
-              setQuote(null);
-            }}
-            className="num h-12 w-full rounded-xl border border-white/10 bg-night px-3 font-display text-2xl font-bold"
-          />
-          <div className="mt-2 flex gap-2">
-            {["5", "10", "25"].map((chip) => (
-              <button key={chip} type="button" className="rounded-full bg-night-3 px-3 py-1 text-xs font-semibold" onClick={() => setAmount(chip)}>
-                FR{chip}
-              </button>
-            ))}
+        ) : (
+          <div>
+            <p className="font-mono text-[11px] text-ink-dim">{holding.toString()} shares in the bag</p>
+            <div className="mt-2 flex gap-1">
+              {[25, 50, 100].map((pct) => (
+                <button
+                  key={pct}
+                  type="button"
+                  onClick={() => {
+                    setSellPct(pct);
+                    setQuote(null);
+                  }}
+                  className={cn("px-2 py-1 font-mono text-[11px]", sellPct === pct ? "bg-taxi text-night" : "border border-line")}
+                >
+                  {pct === 100 ? "Sell all" : `${pct}%`}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="mt-4">
-          <p className="text-xs text-ink-dim">You hold {holding.toString()} shares</p>
-          <div className="mt-2 flex gap-2">
-            {[25, 50, 100].map((pct) => (
-              <button
-                key={pct}
-                type="button"
-                onClick={() => {
-                  setSellPct(pct);
-                  setQuote(null);
-                }}
-                className={cn("rounded-full px-3 py-1 text-xs font-semibold", sellPct === pct ? "bg-taxi text-night" : "bg-night-3")}
-              >
-                {pct === 100 ? "Sell all" : `${pct}%`}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-      {quote?.ok ? (
-        <dl className="mt-4 space-y-1 text-sm">
-          <div className="flex justify-between">
-            <dt className="text-ink-dim">{side === "buy" ? "Shares" : "You receive"}</dt>
-            <dd className="num font-semibold">
-              {side === "buy" ? quote.shares : formatFR(BigInt(quote.payoutUfr ?? "0"))}
-            </dd>
-          </div>
-          <div className="flex justify-between">
-            <dt className="text-ink-dim">Fee 1.25%</dt>
-            <dd className="num">{formatFR(BigInt(quote.feeUfr ?? "0"), { decimals: 4 })}</dd>
-          </div>
-          <p className="text-xs text-ink-dim">
-            Creator {formatFR(BigInt(quote.creatorUfr ?? "0"), { decimals: 4 })} · Platform treasury{" "}
-            {formatFR(BigInt(quote.platformUfr ?? "0"), { decimals: 4 })}
-          </p>
-        </dl>
-      ) : null}
-      {error ? <p className="mt-3 text-sm text-down">{error}</p> : null}
-      {!signedIn ? (
-        <a href="/sign-in" className="mt-4 inline-flex h-12 w-full items-center justify-center rounded-xl bg-protea font-semibold">
-          Sign in to trade
-        </a>
-      ) : quote?.ok ? (
-        <Button type="button" className="mt-4 w-full" disabled={pending} onClick={confirm}>
-          {pending ? "Working…" : side === "buy" ? "Confirm buy" : "Confirm sell"}
-        </Button>
-      ) : (
-        <Button type="button" className="mt-4 w-full" onClick={review}>
-          {side === "buy" ? "Review buy" : "Review sell"}
-        </Button>
-      )}
-      <p className="mt-3 text-center text-xs font-semibold text-taxi">Game · FR has no cash value</p>
+        )}
+        {quote?.ok ? (
+          <dl className="space-y-1 border-t border-line pt-2 font-mono text-[11px]">
+            <div className="flex justify-between">
+              <dt className="text-ink-dim">{side === "buy" ? "Shares" : "You get"}</dt>
+              <dd>{side === "buy" ? quote.shares : formatFR(BigInt(quote.payoutUfr ?? "0"))}</dd>
+            </div>
+            <div className="flex justify-between">
+              <dt className="text-ink-dim">Fee 1.25%</dt>
+              <dd>{formatFR(BigInt(quote.feeUfr ?? "0"), { decimals: 4 })}</dd>
+            </div>
+            <p className="text-ink-dim">
+              Creator {formatFR(BigInt(quote.creatorUfr ?? "0"), { decimals: 4 })} · Treasury {formatFR(BigInt(quote.platformUfr ?? "0"), { decimals: 4 })}
+            </p>
+          </dl>
+        ) : null}
+        {error ? <p className="text-xs text-down">{error}</p> : null}
+        {!signedIn ? (
+          <a href="/sign-in" className="flex h-11 items-center justify-center bg-taxi text-sm font-semibold text-night">
+            Sign in to trade
+          </a>
+        ) : quote?.ok ? (
+          <Button type="button" variant={side === "buy" ? "up" : "down"} className="w-full" disabled={pending} onClick={confirm}>
+            {pending ? "Working…" : side === "buy" ? "Confirm buy" : "Confirm sell"}
+          </Button>
+        ) : (
+          <Button type="button" className="w-full" onClick={review}>
+            {side === "buy" ? "Review buy" : "Review sell"}
+          </Button>
+        )}
+        <p className="text-center font-mono text-[10px] uppercase tracking-wider text-taxi">Game · FR has no cash value</p>
+      </div>
     </section>
   );
 }

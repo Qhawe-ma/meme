@@ -6,10 +6,11 @@ export const dynamic = "force-dynamic";
 export default async function LaunchPage() {
   const user = await currentUser();
   return (
-    <div className="mx-auto max-w-xl py-6">
-      <h1 className="font-display text-3xl font-extrabold">Launch a coin</h1>
+    <div className="mx-auto max-w-xl px-3 py-4">
+      <p className="font-mono text-[10px] uppercase tracking-widest text-taxi">FR20 · treasury</p>
+      <h1 className="display text-5xl leading-none">Launch a coin</h1>
       <p className="mt-2 text-sm text-ink-dim">
-        FR20 goes to the platform treasury. The coin contract locks the curve, fees and supply. It is a database record, not a blockchain.
+        The fee goes to the platform treasury. The contract locks the curve. It is a row in our database, not a chain.
       </p>
       <div className="mt-5">
         <LaunchForm signedIn={Boolean(user?.granted)} />

@@ -12,7 +12,7 @@ export function LaunchForm({ signedIn }: { signedIn: boolean }) {
   const [pending, setPending] = useState(false);
   if (!signedIn) {
     return (
-      <p className="card p-6">
+      <p className="border border-line bg-night-2 p-4 text-sm">
         <a href="/sign-in" className="font-semibold text-taxi underline">
           Sign in
         </a>{" "}

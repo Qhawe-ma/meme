@@ -15,7 +15,7 @@ export default async function AdminPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-6">
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-3xl font-extrabold">Admin</h1>
+        <h1 className="display text-5xl leading-none">Admin</h1>
         <GamePill />
       </div>
       <p className="mt-2 text-sm text-ink-dim">

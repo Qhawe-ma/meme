@@ -10,7 +10,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ handle
   if (!profile) notFound();
   return (
     <div className="py-6">
-      <h1 className="font-display text-3xl font-extrabold">@{profile.handle}</h1>
+      <h1 className="display text-5xl leading-none">@{profile.handle}</h1>
       <p className="text-ink-dim">{profile.displayName}</p>
       <h2 className="mt-6 font-display text-xl font-extrabold">Coins</h2>
       <ul className="mt-3 grid gap-3 sm:grid-cols-2">

@@ -9,7 +9,7 @@ export default async function SettingsPage() {
   if (!user) {
     return (
       <div className="py-10">
-        <h1 className="font-display text-3xl font-extrabold">Me</h1>
+        <h1 className="display text-5xl">Me</h1>
         <p className="mt-3">
           <Link href="/sign-in" className="text-taxi underline">
             Sign in
@@ -25,7 +25,7 @@ export default async function SettingsPage() {
   }
   return (
     <div className="mx-auto max-w-xl space-y-4 py-6">
-      <h1 className="font-display text-3xl font-extrabold">@{user.handle}</h1>
+      <h1 className="display text-5xl leading-none">@{user.handle}</h1>
       <p className="text-sm text-ink-dim">{user.displayName}</p>
       <div className="card space-y-3 p-4 text-sm">
         <p>Email: {user.email}</p>

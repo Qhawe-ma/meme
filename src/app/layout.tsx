@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/figtree";
 import { RegisterServiceWorker } from "@/components/pwa/register";
 import "./globals.css";
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1c1a33",
+  themeColor: "#0e0f0c",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

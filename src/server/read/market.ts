@@ -21,6 +21,8 @@ export type CoinCard = {
   phase: string;
   status: string;
   creatorHandle: string;
+  /** Recent prices, oldest first, for a sparkline. Display only. */
+  spark: number[];
 };
 
 type CoinRow = {
@@ -103,6 +105,7 @@ function cardOf(row: CoinRow, change1h = 0n): CoinCard {
     phase: row.phase,
     status: row.status,
     creatorHandle: row.handle,
+    spark: [],
   };
 }
 
@@ -122,7 +125,7 @@ export async function listCoins(tab: string, q: string) {
      LIMIT 60`,
     [query, `%${query}%`, tab],
   );
-  const cards = rows.map((row) => cardOf(row));
+  const cards = await withSparks(rows.map((row) => cardOf(row)));
   const hill = cards
     .filter((coin) => coin.phase === "curve" && BigInt(coin.progressBps) >= 5000n)
     .sort((a, b) => (BigInt(a.progressBps) > BigInt(b.progressBps) ? -1 : 1))[0] ?? null;
@@ -504,6 +507,75 @@ export async function adminOverview() {
       at: new Date(row.created_at).toISOString(),
     })),
   };
+}
+
+async function withSparks(cards: CoinCard[]): Promise<CoinCard[]> {
+  if (cards.length === 0) return cards;
+  const ids = cards.map((card) => card.id);
+  const prices = await db()<{ coin_id: string; price: bigint }[]>`
+    SELECT coin_id, close AS price
+    FROM (
+      SELECT coin_id, close,
+        row_number() OVER (PARTITION BY coin_id ORDER BY bucket_start DESC) AS rn
+      FROM candles
+      WHERE interval = '5m' AND coin_id = ANY(${ids}::uuid[])
+    ) s
+    WHERE rn <= 24
+    ORDER BY coin_id, rn DESC
+  `;
+  const byCoin = new Map<string, number[]>();
+  for (const row of prices) {
+    const list = byCoin.get(row.coin_id) ?? [];
+    list.push(Number(bi(row.price)) / 1_000_000);
+    byCoin.set(row.coin_id, list);
+  }
+  return cards.map((card) => {
+    const spark = byCoin.get(card.id) ?? [];
+    const last = Number(card.priceUfrPer1m) / 1_000_000;
+    const line = spark.length > 1 ? spark : [last, last];
+    const open = line[0] ?? last;
+    const close = line[line.length - 1] ?? last;
+    const bps = open > 0 ? Math.round(((close - open) / open) * 10_000) : 0;
+    return { ...card, spark: line, change1hBps: String(bps) };
+  });
+}
+
+export type TapeItem = { side: string; ticker: string; handle: string; grossUfr: string; at: string };
+
+export async function recentTape(limit = 24): Promise<TapeItem[]> {
+  const rows = await db()<{ side: string; ticker: string; handle: string; gross_ufr: bigint; created_at: Date }[]>`
+    SELECT t.side, c.ticker, p.handle, t.gross_ufr, t.created_at
+    FROM trades t
+    JOIN coins c ON c.id = t.coin_id
+    JOIN profiles p ON p.user_id = t.user_id
+    WHERE c.status = 'live'
+    ORDER BY t.seq DESC
+    LIMIT ${limit}
+  `;
+  return rows.map((row) => ({
+    side: row.side,
+    ticker: row.ticker,
+    handle: row.handle,
+    grossUfr: bi(row.gross_ufr).toString(),
+    at: new Date(row.created_at).toISOString(),
+  }));
+}
+
+export async function listComments(coinId: string) {
+  const rows = await db()<{ id: string; body: string; handle: string; created_at: Date }[]>`
+    SELECT m.id, m.body, p.handle, m.created_at
+    FROM coin_comments m
+    JOIN profiles p ON p.user_id = m.user_id
+    WHERE m.coin_id = ${coinId}
+    ORDER BY m.created_at DESC
+    LIMIT 40
+  `;
+  return rows.map((row) => ({
+    id: row.id,
+    body: row.body,
+    handle: row.handle,
+    at: new Date(row.created_at).toISOString(),
+  }));
 }
 
 export async function publicProfile(handle: string) {
