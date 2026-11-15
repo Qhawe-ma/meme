@@ -3,7 +3,7 @@ import { UFR } from "@/lib/config/economy";
 import { formatFR } from "./format";
 
 describe("formatFR", () => {
-  it("formats the spec example", () => {
+  it("formats 12345678 micro-FR as FR12.35", () => {
     expect(formatFR(12_345_678n)).toBe("FR12.35");
   });
 

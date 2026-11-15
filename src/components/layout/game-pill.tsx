@@ -1,9 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/**
- * The persistent "this is a game" label. Hard rule: visible in the header on every
- * page, and repeated on the trade sheet, onboarding, coin page and terms later.
- */
+// On every page, so the product keeps reading as a game.
 export function GamePill({ className }: { className?: string }) {
   return (
     <p

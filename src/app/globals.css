@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 /*
-  Meme Market look: a South African taxi rank at night. Deep indigo ground,
-  taxi-yellow for the "this is a game" sticker, protea pink for the main action.
-  Dark only for now (the spec asks for dark by default).
+  A taxi rank at night: indigo ground, taxi yellow for the game sticker,
+  protea pink for the main action. Dark only.
 */
 @theme {
   --color-night: #1c1a33;

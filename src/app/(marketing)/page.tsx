@@ -5,7 +5,7 @@ import { Logo } from "@/components/layout/logo";
 import { formatFR } from "@/lib/money/format";
 import { cn } from "@/lib/utils";
 
-// Example figures come from the spec's worked beta example (table B), not from live data.
+// Static beta-curve example (graduation at FR2,000). Not a live coin.
 const EXAMPLE = {
   price: formatFR(740_800n, { decimals: 4 }),
   marketCap: formatFR(740_850_000n),
@@ -67,10 +67,17 @@ export default function LandingPage() {
                 <p className="font-display text-2xl font-extrabold">$BRAAI</p>
                 <p className="text-sm text-ink-dim">Example coin, not live</p>
               </div>
-              <p className="rounded-lg bg-night-3 px-2 py-1 text-sm font-semibold text-up">+48.2%</p>
+              <p className="rounded-lg bg-night-3 px-2 py-1 text-sm font-semibold text-up">
+                +48.2%
+              </p>
             </div>
 
-            <svg viewBox="0 0 300 100" role="img" aria-label="Price rising in steps" className="mt-4 h-28 w-full">
+            <svg
+              viewBox="0 0 300 100"
+              role="img"
+              aria-label="Price rising in steps"
+              className="mt-4 h-28 w-full"
+            >
               <polyline
                 points="0,88 22,84 40,86 62,74 80,78 104,64 126,68 148,52 170,58 196,38 218,46 246,24 270,30 300,12"
                 fill="none"
@@ -101,7 +108,10 @@ export default function LandingPage() {
                 aria-valuenow={EXAMPLE.progress}
                 className="h-2.5 overflow-hidden rounded-full bg-night-3"
               >
-                <div className="h-full rounded-full bg-taxi" style={{ width: `${EXAMPLE.progress}%` }} />
+                <div
+                  className="h-full rounded-full bg-taxi"
+                  style={{ width: `${EXAMPLE.progress}%` }}
+                />
               </div>
               <p className="mt-1.5 text-xs text-ink-dim">
                 {EXAMPLE.progress}% of the way to graduating at {EXAMPLE.target}
