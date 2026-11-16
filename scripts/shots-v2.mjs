@@ -3,7 +3,7 @@ import { chromium } from "@playwright/test";
 import postgres from "postgres";
 
 const base = "http://localhost:3000";
-const out = "/opt/cursor/artifacts/screenshots-v2";
+const out = "/opt/cursor/artifacts/screenshots-v3";
 mkdirSync(out, { recursive: true });
 const sql = postgres(process.env.DATABASE_URL, { max: 1 });
 const [user] = await sql`
@@ -35,14 +35,8 @@ const pages = [
   ["/", "landing"],
   ["/feed", "feed"],
   ["/c/BRAAI", "coin"],
-  ["/c/DURBAN", "coin-durban"],
   ["/launch", "launch"],
   ["/portfolio", "portfolio"],
-  ["/leaderboard", "leaderboard"],
-  ["/sign-up", "signup"],
-  ["/sign-in", "signin"],
-  ["/settings", "settings"],
-  ["/legal/terms", "terms"],
 ];
 
 for (const [tag, viewport] of sizes) {

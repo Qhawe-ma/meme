@@ -44,7 +44,7 @@ export default async function GameLayout({ children }: { children: React.ReactNo
                 {formatFR(user.cashUfr)}
               </Link>
             ) : (
-              <Link href="/sign-in" className="text-xs font-semibold uppercase tracking-wide text-taxi">
+              <Link href="/sign-in" className="font-geist text-sm text-taxi">
                 Sign in
               </Link>
             )}

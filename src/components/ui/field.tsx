@@ -15,7 +15,7 @@ export function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
     <input
       {...props}
       className={cn(
-        "num h-11 w-full rounded-[2px] border border-line bg-night px-3 text-sm outline-none",
+        "h-10 w-full rounded-[10px] border border-line bg-night px-3 text-sm outline-none",
         "placeholder:text-ink-dim/70 focus:border-taxi",
         props.className,
       )}
@@ -28,7 +28,7 @@ export function TextArea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement
     <textarea
       {...props}
       className={cn(
-        "min-h-24 w-full rounded-[2px] border border-line bg-night px-3 py-2 text-sm outline-none",
+        "min-h-24 w-full rounded-[10px] border border-line bg-night px-3 py-2 text-sm outline-none",
         "placeholder:text-ink-dim/70 focus:border-taxi",
         props.className,
       )}

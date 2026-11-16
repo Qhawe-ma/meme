@@ -14,7 +14,7 @@ export function Spark({ points, up }: { points: number[]; up: boolean }) {
     .join(" ");
   return (
     <svg viewBox={`0 0 ${w} ${h}`} className="h-7 w-[84px]" aria-hidden>
-      <path d={d} fill="none" stroke={up ? "#c6f135" : "#ff4b2b"} strokeWidth="1.6" />
+      <path d={d} fill="none" stroke={up ? "#86efac" : "#ff5d6c"} strokeWidth="1.6" />
     </svg>
   );
 }

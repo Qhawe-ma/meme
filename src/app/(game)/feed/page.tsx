@@ -55,7 +55,7 @@ export default async function FeedPage({
           <Link
             key={item.id}
             href={`/feed?tab=${item.id}`}
-            className={`whitespace-nowrap px-3 py-1 font-mono text-[11px] uppercase ${tab === item.id ? "bg-taxi text-night" : "text-ink-dim"}`}
+            className={`font-geist whitespace-nowrap rounded-full px-3 py-1 text-[13px] ${tab === item.id ? "bg-taxi text-[#052e16]" : "text-ink-dim"}`}
           >
             {item.label}
           </Link>

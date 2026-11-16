@@ -21,10 +21,13 @@ export function CoinRow({ coin, rank }: { coin: CoinCard; rank?: number }) {
       >
         <span className="num text-[10px] text-ink-dim">{rank ?? ""}</span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={coin.imageUrl} alt="" className="size-10 object-cover" />
+        <img src={coin.imageUrl} alt="" className="size-10 rounded-[8px] object-cover" />
         <span className="min-w-0">
-          <span className="display block truncate text-lg leading-none">{coin.ticker}</span>
-          <span className="mt-0.5 block truncate text-[11px] text-ink-dim">{meta}</span>
+          <span className="display block truncate text-[17px] leading-none">{coin.ticker}</span>
+          <span className="mt-1 block h-[3px] overflow-hidden rounded-full bg-night-4">
+            <span className="block h-full rounded-full bg-taxi" style={{ width: `${Math.max(progress, 3)}%` }} />
+          </span>
+          <span className="mt-1 block truncate text-[11px] text-ink-dim">{meta}</span>
         </span>
         <Spark points={coin.spark} up={up} />
         <span className="text-right">

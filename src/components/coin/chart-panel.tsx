@@ -34,11 +34,11 @@ export function ChartPanel({ ticker }: { ticker: string }) {
       });
       const scale = mode === "mcap" ? 1000 : 1;
       const candles = next.addSeries(lib.CandlestickSeries, {
-        upColor: "#c6f135",
-        downColor: "#ff4b2b",
+        upColor: "#86efac",
+        downColor: "#ff5d6c",
         borderVisible: false,
-        wickUpColor: "#c6f135",
-        wickDownColor: "#ff4b2b",
+        wickUpColor: "#86efac",
+        wickDownColor: "#ff5d6c",
       });
       candles.setData(
         data.candles.map((candle) => ({
@@ -49,13 +49,18 @@ export function ChartPanel({ ticker }: { ticker: string }) {
           close: (Number(candle.c) / 1e6) * scale,
         })),
       );
-      const volume = next.addSeries(lib.HistogramSeries, { priceFormat: { type: "volume" }, priceScaleId: "vol" });
+      const volume = next.addSeries(lib.HistogramSeries, {
+        priceFormat: { type: "volume" },
+        priceScaleId: "vol",
+        lastValueVisible: false,
+        priceLineVisible: false,
+      });
       volume.priceScale().applyOptions({ scaleMargins: { top: 0.82, bottom: 0 } });
       volume.setData(
         data.candles.map((candle) => ({
           time: Math.floor(new Date(candle.t).getTime() / 1000) as never,
           value: Number(candle.v) / 1e6,
-          color: BigInt(candle.bv) >= BigInt(candle.sv) ? "rgba(198,241,53,0.45)" : "rgba(255,75,43,0.45)",
+          color: BigInt(candle.bv) >= BigInt(candle.sv) ? "rgba(134,239,172,0.45)" : "rgba(255,93,108,0.5)",
         })),
       );
       next.timeScale().fitContent();

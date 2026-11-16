@@ -5,7 +5,7 @@ export function GamePill({ className }: { className?: string }) {
   return (
     <p
       className={cn(
-        "inline-flex items-center bg-taxi px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-night",
+        "inline-flex items-center rounded-[6px] bg-taxi px-2 py-1 font-mono text-[11px] font-medium text-[#052e16]",
         className,
       )}
     >

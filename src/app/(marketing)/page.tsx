@@ -16,11 +16,11 @@ export default async function LandingPage() {
       <header className="border-b border-line">
         <div className="flex items-center gap-3 px-3 py-2">
           <Logo />
-          <div className="ml-auto flex items-center gap-3 text-xs font-semibold uppercase tracking-wide">
+          <div className="font-geist ml-auto flex items-center gap-3 text-sm">
             <Link href="/sign-in" className="text-ink-dim hover:text-ink">
               Sign in
             </Link>
-            <Link href="/sign-up" className="bg-taxi px-3 py-2 text-night">
+            <Link href="/sign-up" className="font-geist rounded-[10px] bg-taxi px-3 py-2 text-sm font-medium text-[#052e16]">
               Get FR200
             </Link>
           </div>
@@ -33,18 +33,18 @@ export default async function LandingPage() {
 
       <section className="grid gap-3 px-3 py-3 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-end">
         <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-taxi">Howzit · 18+ · fake rand</p>
+          <p className="font-mono text-[12px] text-taxi">Howzit · 18+ · fake rand</p>
           <h1 className="display mt-1 text-4xl leading-none sm:text-5xl">Launch a meme coin.</h1>
           <p className="mt-2 max-w-md text-sm text-ink-dim">
             Trade it with fake rand. The board is the game. FR has no cash value.
           </p>
-          <Link href="/feed" className="mt-3 inline-block border border-line px-3 py-1.5 text-xs font-semibold uppercase tracking-wide hover:bg-night-3">
+          <Link href="/feed" className="font-geist mt-3 inline-block rounded-[10px] border border-line px-3 py-2 text-sm hover:bg-night-3">
             Browse the floor
           </Link>
         </div>
         {lead ? (
-          <Link href={`/c/${lead.ticker}`} className="border-l-4 border-taxi bg-night-2 p-3">
-            <p className="font-mono text-[10px] uppercase tracking-widest text-taxi">
+          <Link href={`/c/${lead.ticker}`} className="rounded-[12px] border border-line border-l-4 border-l-taxi bg-night-2 p-3">
+            <p className="font-mono text-[11px] text-taxi">
               {king ? "King of the koppie" : "Front of the rank"}
             </p>
             <p className="display text-4xl leading-none">{lead.ticker}</p>

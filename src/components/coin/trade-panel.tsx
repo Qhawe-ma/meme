@@ -134,7 +134,7 @@ export function TradePanel({
                 setAmount(event.target.value);
                 setQuote(null);
               }}
-              className="num h-12 w-full border border-line bg-night px-2 text-2xl"
+              className="num h-12 w-full rounded-[10px] border border-line bg-night px-3 text-2xl"
             />
             <div className="mt-2 flex gap-1">
               {["5", "10", "25"].map((chip) => (

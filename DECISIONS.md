@@ -53,4 +53,6 @@ Postgres 16 and Redis 7 run from docker-compose.
 18. **`app_rw` cannot `SELECT … FOR UPDATE` ledger accounts** without UPDATE privilege, which it must not have. `lock_ledger_account()` is a security-definer function that takes the row lock for the caller's transaction.
 19. **Drizzle remains configured; runtime queries use postgres.js.** Money paths need explicit locks, numeric `k` (the curve constant does not fit in int8), and trigger-owned balance updates. `drizzle.config.ts` still points at the schema module.
 20. **Rate limits are in memory.** Right for one VPS process. End-to-end tests set `RATE_LIMIT_DISABLED=1` so the scripted buy/sell is not blocked by the 3 second same-coin cooldown. Do not set that flag in production.
+22. **Type follows trymine.fun, colour does not.** Satoshi (self-hosted from Fontshare) is the UI and headings. Geist and Geist Mono come from `next/font`. Spline Sans Mono is the number face. The accent is pump.fun green `#86EFAC` with `#052e16` on top of it. Red is only for a price going down. Their pink is not used.
+
 21. **Loopback and unknown addresses do not count toward the /24 grant hold.** 127.0.0.1, ::1 and 0.0.0.0 (no socket address on a local Node server) are the developer's own machine, not a carrier NAT. The device-cookie hold still applies.

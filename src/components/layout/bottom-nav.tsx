@@ -25,8 +25,8 @@ export function BottomNav() {
                 href={href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "flex h-12 items-center justify-center text-[11px] font-semibold uppercase tracking-wide",
-                  active ? "bg-taxi text-night" : "text-ink-dim",
+                  "font-geist flex h-12 items-center justify-center text-[13px]",
+                  active ? "text-taxi" : "text-ink-dim",
                 )}
               >
                 {label}

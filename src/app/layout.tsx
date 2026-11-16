@@ -1,7 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Spline_Sans_Mono } from "next/font/google";
 import "@fontsource-variable/figtree";
 import { RegisterServiceWorker } from "@/components/pwa/register";
 import "./globals.css";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
+const spline = Spline_Sans_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-spline",
+});
 
 export const metadata: Metadata = {
   title: { default: "Meme Market", template: "%s · Meme Market" },
@@ -14,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0e0f0c",
+  themeColor: "#0b0b0c",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -22,7 +31,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-ZA">
+    <html lang="en-ZA" className={`${geist.variable} ${geistMono.variable} ${spline.variable}`}>
       <body>
         <RegisterServiceWorker />
         {children}
