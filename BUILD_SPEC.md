@@ -4,7 +4,17 @@ A mobile-first web game (installable PWA) where South African players launch **m
 
 All numbers here (balances, fees, caps, curve parameters, timings) are **starting values to tune**. Nothing in this spec is a statistic or a promise of results. Day estimates are estimates.
 
-**What changed in v2:** FR200 signup grant (the only default mint), FR20 to create a coin, graduation at FR100,000 (with a beta preset), 1.25% buy and sell fees (0.25 pp to creator as claimable rewards, 1.00 pp burned), immutable versioned "coin contracts", socials on coins, a full trading chart (candles, volume, market cap, holders, trades, progress), a much stricter money-integrity design, and a step-by-step build plan.
+**Fee override (v2.1, supersedes every "burn" sentence below):** 1.25% fee on every buy and every sell. **0.25 percentage points** go to the coin creator as claimable rewards. The remaining **1.00 percentage point** goes to a **PLATFORM_TREASURY** ledger account owned by the platform operator. The FR20 create fee and the 5% graduation fee also credit that treasury. **Nothing is burned.** There is no BURN account.
+
+Global identity:
+
+```
+−balance(MINT) == Σ USER_CASH + Σ CREATOR_REWARDS + Σ COIN_RESERVE + balance(PLATFORM_TREASURY)
+```
+
+The treasury cannot be withdrawn, cashed out, or paid to a user. The admin dashboard shows its total. Where older paragraphs still say "burned", read them as "credited to the platform treasury".
+
+**What changed in v2:** FR200 signup grant (the only default mint), FR20 to create a coin, graduation at FR100,000 (with a beta preset), 1.25% buy and sell fees (0.25 pp to creator as claimable rewards, 1.00 pp to the platform treasury), immutable versioned "coin contracts", socials on coins, a full trading chart (candles, volume, market cap, holders, trades, progress), a much stricter money-integrity design, and a step-by-step build plan.
 
 ---
 
@@ -72,9 +82,9 @@ Start with M0 now.
 | Signup grant (only mint) | FR200 once per verified person | same |
 | Daily bonus | **removed** | removed |
 | Bailout | feature flag, **off** (FR20 top-up if net worth < FR5, once per 14 days) | consider turning on |
-| Create coin | FR20, burned | same |
+| Create coin | FR20, to the platform treasury | same |
 | Buy fee / sell fee | 1.25% / 1.25% | same |
-| Fee split | 0.25 pp → creator rewards (claimable), 1.00 pp → burned | same |
+| Fee split | 0.25 pp → creator rewards (claimable), 1.00 pp → platform treasury | same |
 | Total supply per coin | 1,000,000,000 shares | same |
 | Curve supply (sold before graduation) | 800,000,000 (80%) | same |
 | Graduation target (real FR in reserve, after fees) | **FR100,000** | **FR2,000** |
@@ -146,8 +156,8 @@ export const ECON = {
   BUY_FEE_BPS: 125n,                         // 1.25%
   SELL_FEE_BPS: 125n,                        // 1.25%
   CREATOR_FEE_BPS: 25n,                      // 0.25 pp of trade value -> creator rewards
-  BURN_FEE_BPS: 100n,                        // 1.00 pp of trade value -> burned
-  GRADUATION_FEE_BPS: 500n,                  // 5% of reserve burned at graduation
+  PLATFORM_FEE_BPS: 100n,                    // 1.00 pp of trade value -> platform treasury
+  GRADUATION_FEE_BPS: 500n,                  // 5% of reserve to the platform treasury at graduation
 
   LAUNCH_PROTECTION_SECONDS: 60,
   MIN_TRADE_UFR: 100_000n,                   // FR0.10
@@ -417,7 +427,7 @@ There is **no** admin credit, adjust-up, gift or transfer kind. A user-to-user c
 
 ### 9.4 Global invariant (continuous)
 ```
-−balance(MINT) == Σ USER_CASH + Σ CREATOR_REWARDS + Σ COIN_RESERVE + balance(BURN)
+−balance(MINT) == Σ USER_CASH + Σ CREATOR_REWARDS + Σ COIN_RESERVE + balance(PLATFORM_TREASURY)
 −balance(MINT) == (number of SIGNUP_GRANT txs × 200) + Σ BAILOUT amounts
 Σ all ledger_entries.amount_ufr == 0
 each account: balance == Σ its entries

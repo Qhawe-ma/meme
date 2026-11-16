@@ -4,6 +4,7 @@ out
 build
 .env
 .env.local
+data/
 *.tsbuildinfo
 next-env.d.ts
 playwright-report

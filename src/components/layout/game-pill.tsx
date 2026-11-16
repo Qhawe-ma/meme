@@ -1,15 +1,11 @@
 import { cn } from "@/lib/utils";
 
-/**
- * The persistent "this is a game" label. Hard rule: visible in the header on every
- * page, and repeated on the trade sheet, onboarding, coin page and terms later.
- */
+/** Exact wording is a hard rule. One instance per screen so it is never display:none. */
 export function GamePill({ className }: { className?: string }) {
   return (
     <p
       className={cn(
-        "inline-block -rotate-1 whitespace-nowrap rounded-md border-2 border-night bg-taxi px-2 py-0.5",
-        "text-xs font-bold text-night shadow-[2px_2px_0_0_rgba(0,0,0,0.35)]",
+        "inline-flex items-center rounded-[6px] bg-taxi px-2 py-1 font-mono text-[11px] font-medium text-[#052e16]",
         className,
       )}
     >

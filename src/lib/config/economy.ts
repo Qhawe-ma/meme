@@ -15,8 +15,8 @@ export const PRESETS = {
 
 export type PresetName = keyof typeof PRESETS;
 
-// Active preset is read from system_settings.economy_preset (default 'default');
-// changing it needs 2-person approval. That wiring arrives in M1/M8.
+// Active preset is read from system_settings.economy_preset (default 'default').
+// Changing it needs 2-person approval.
 
 export const ECON = {
   CONTRACT_VERSION: "mm-curve-v1",
@@ -25,18 +25,18 @@ export const ECON = {
   BAILOUT_THRESHOLD_UFR: 5n * UFR,
   BAILOUT_COOLDOWN_DAYS: 14,
 
-  CREATE_FEE_UFR: 20n * UFR, // burned
+  CREATE_FEE_UFR: 20n * UFR, // credited to the platform treasury
 
   TOTAL_SUPPLY: 1_000_000_000n,
   CURVE_SUPPLY: 800_000_000n, // 80% sold on the curve
   VIRTUAL_SHARES: 1_000_000_000n, // y0
-  // x0 (virtual FR) = GRADUATION_TARGET / 4  (because x_final = x0*y0/(y0-CURVE) = 5*x0)
+  // x0 (virtual FR) = GRADUATION_TARGET / 4
 
   BUY_FEE_BPS: 125n, // 1.25%
   SELL_FEE_BPS: 125n, // 1.25%
   CREATOR_FEE_BPS: 25n, // 0.25 pp of trade value -> creator rewards
-  BURN_FEE_BPS: 100n, // 1.00 pp of trade value -> burned
-  GRADUATION_FEE_BPS: 500n, // 5% of reserve burned at graduation
+  PLATFORM_FEE_BPS: 100n, // 1.00 pp of trade value -> platform treasury
+  GRADUATION_FEE_BPS: 500n, // 5% of reserve to the platform treasury at graduation
 
   LAUNCH_PROTECTION_SECONDS: 60,
   MIN_TRADE_UFR: 100_000n, // FR0.10
@@ -50,3 +50,8 @@ export const ECON = {
   SEASON_MIN_TRADES_TO_RANK: 5,
   REPORTS_TO_AUTO_HIDE: 3,
 } as const;
+
+export function virtualFr(targetUfr: bigint): bigint {
+  if (targetUfr % 4n !== 0n) throw new Error("graduation target must be divisible by 4");
+  return targetUfr / 4n;
+}
